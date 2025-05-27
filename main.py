@@ -223,19 +223,7 @@ def get_airframe(soup, description):
         console_text.set(console_text.get() + f"\nError fetching airframe: {e}")
     return "Unknown"
 
-
-def save_to_excel(data, filename):
-    console_text.set("All items processed, saving...")
-    df = pd.DataFrame(data)
-    cols = df.columns.tolist()
-    cols2 = cols
-    cols[0], cols[1], cols[2], cols[3], cols[4], cols[5], cols[6], cols[7], cols[8], cols[9], cols[10], cols[11] = \
-        cols2[11], cols2[4], cols2[0], cols2[1], cols2[2], cols2[3], cols2[5], cols2[9], cols2[6], cols2[7], cols2[8], cols2[10]
-    df = df[cols]
-    df.to_excel(filename, index=False)
-    console_text.set(console_text.get() + f"Data saved to {filename}!")
-
-def save_to_excel2(data):
+def save_to_excel(data):
     console_text.set(console_text.get() + "\nAll items processed, attempting to save file...")
     filename = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel files", "*.xlsx")])
     if filename:
@@ -254,7 +242,7 @@ def main_process(username):
         console_text.set("Steam CustomLink name detected, searching...")
     try:
         workshop_items = fetch_workshop_items(user_url)
-        save_to_excel2(workshop_items)
+        save_to_excel(workshop_items)
         messagebox.showinfo("Success", f"Data saved successfully for {username}!")
         console_text.set(console_text.get() + f"\nData saved successfully.")
     except Exception as e:
